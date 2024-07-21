@@ -1,7 +1,7 @@
 <?php
 return [
     
-    'bot_token' => 'YOUR_BOT_TOKEN_HERE',
+    'bot_token' => '6786898794:AAGUoU3FxGMxOIaJ8zJ5kDPd3svT42HarF8',
     
     'channels' => ['@channel1', '@channel2', '@channel3'], // Add your channels here
     
