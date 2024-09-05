@@ -1,0 +1,100 @@
+<?php
+  $data = $update->callback_query->data;
+$chat_id2 = $update->callback_query->message->chat->id;
+$message_id2 = $update->callback_query->message->message_id;
+$from_id2 = $update->callback_query->from->id; 
+
+ $json = json_decode(file_get_contents("bot.json"),true);
+if($text == "الحاسبه" or $text == "الحاسبة" or $text == "حاسبة" or $text == "حاسبه"){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"
+📖 : تم تشغيل الآلة الحاسبة 
+",
+'reply_to_message_id'=>$message->message_id,
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'AC' ,'callback_data'=>"AC"]],
+[['text'=>'7' ,'callback_data'=>"7"],['text'=>'8' ,'callback_data'=>"8"],['text'=>'9' ,'callback_data'=>"9"],['text'=>'×' ,'callback_data'=>"×"]],
+[['text'=>'4' ,'callback_data'=>"4"],['text'=>'5' ,'callback_data'=>"5"],['text'=>'6' ,'callback_data'=>"6"],['text'=>'-' ,'callback_data'=>"-"]],
+[['text'=>'1' ,'callback_data'=>"1"],['text'=>'2' ,'callback_data'=>"2"],['text'=>'3' ,'callback_data'=>"3"],['text'=>'+' ,'callback_data'=>"+"]],
+[['text'=>'=' ,'callback_data'=>"="],['text'=>'0' ,'callback_data'=>"0"],
+['text'=>'.' ,'callback_data'=>"."],
+['text'=>'÷' ,'callback_data'=>"÷"]],
+]])
+]);
+}
+if($data != "AC"){
+if($data != "="){
+if($data == "×"){
+$data = "*";
+}
+if($data == "÷"){
+$data = "/";
+}
+$json[$from_id2]['n1'][] = $data;
+file_put_contents("bot.json",json_encode($json));
+foreach($json[$from_id2]['n1'] as $aahaaa){
+$hhmhhh = $hhmhhh."$aahaaa"."";
+}
+bot('EditMessageText',[
+'chat_id'=>$chat_id2,
+'message_id'=>$message_id2,
+'text'=>"
+📖 : تم تشغيل الآلة الحاسبة 
+
+$hhmhhh
+",
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'AC' ,'callback_data'=>"AC"]],
+[['text'=>'7' ,'callback_data'=>"7"],['text'=>'8' ,'callback_data'=>"8"],['text'=>'9' ,'callback_data'=>"9"],['text'=>'×' ,'callback_data'=>"×"]],
+[['text'=>'4' ,'callback_data'=>"4"],['text'=>'5' ,'callback_data'=>"5"],['text'=>'6' ,'callback_data'=>"6"],['text'=>'-' ,'callback_data'=>"-"]],
+[['text'=>'1' ,'callback_data'=>"1"],['text'=>'2' ,'callback_data'=>"2"],['text'=>'3' ,'callback_data'=>"3"],['text'=>'+' ,'callback_data'=>"+"]],
+[['text'=>'=' ,'callback_data'=>"="],['text'=>'0' ,'callback_data'=>"0"],
+['text'=>'.' ,'callback_data'=>"."],
+['text'=>'÷' ,'callback_data'=>"÷"]],
+]])
+]);
+}else{
+foreach($json[$from_id2]['n1'] as $aahaaa){
+$hhmhhh = $hhmhhh."$aahaaa"."";
+}
+$aahaaa = urlencode($hhmhhh);
+$O9oOoO = file_get_contents('http://api.mathjs.org/v1/?expr='.$aahaaa);
+bot('EditMessageText',[
+'chat_id'=>$chat_id2,
+'message_id'=>$message_id2,
+'text'=>"
+الناتج : $O9oOoO 💡 .",'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'احسب من جديد 🖇️' ,'callback_data'=>"AC"]],
+]]),
+]);
+unset($json[$from_id2]);
+file_put_contents("bot.json",json_encode($json));
+}
+}
+if($data == "AC"){
+unset($json[$from_id2]);
+file_put_contents("bot.json",json_encode($json));
+bot('EditMessageText',[
+'chat_id'=>$chat_id2,
+'message_id'=>$message_id2,
+'text'=>
+"📖 : تم إعادة تشغيل الآلة الحاسبة 
+
+0",
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'AC' ,'callback_data'=>"AC"]],
+[['text'=>'7' ,'callback_data'=>"7"],['text'=>'8' ,'callback_data'=>"8"],['text'=>'9' ,'callback_data'=>"9"],['text'=>'×' ,'callback_data'=>"×"]],
+[['text'=>'4' ,'callback_data'=>"4"],['text'=>'5' ,'callback_data'=>"5"],['text'=>'6' ,'callback_data'=>"6"],['text'=>'-' ,'callback_data'=>"-"]],
+[['text'=>'1' ,'callback_data'=>"1"],['text'=>'2' ,'callback_data'=>"2"],['text'=>'3' ,'callback_data'=>"3"],['text'=>'+' ,'callback_data'=>"+"]],
+[['text'=>'=' ,'callback_data'=>"="],['text'=>'0' ,'callback_data'=>"0"],
+['text'=>'.' ,'callback_data'=>"."],
+['text'=>'÷' ,'callback_data'=>"÷"]],
+]])
+]);
+}
+?>
